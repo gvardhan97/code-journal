@@ -11,10 +11,25 @@ public:
             return dp[ind][state]=max(fun(ind+1,state,prices),prices[ind]+fun(ind+1,0,prices));
         }
     
-    int maxProfit(vector<int>& prices) {
-        int n=prices.size();
+    int maxProfit(vector<int>& arr) {
+        int n=arr.size();
         dp.resize(n+1,vector<int>(2,INT_MIN));
-        return fun(0,0,prices);
+
+        int prev_buy=INT_MIN;  //so on first index i cannot sell
+        int prev_sell=0;       //so on first index i can buy
+        for(int i=0;i<n;i++){
+            int curbuy,cursell;
+            //buy 2 options, take options, max(do nothing or (buy and add prevsell)
+             curbuy=max(-arr[i]+prev_sell,prev_buy);//buy or skip
+            //sell
+            cursell=max(arr[i]+prev_buy,prev_sell);
+
+            prev_buy=curbuy;
+            prev_sell=cursell;
+        }
+        return max(prev_buy,prev_sell);
+
+        return fun(0,0,arr);
     }
 };
 //0 represents purchase
