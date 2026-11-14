@@ -13,8 +13,6 @@ public:
     
     int maxProfit(vector<int>& arr) {
         int n=arr.size();
-        dp.resize(n+1,vector<int>(2,INT_MIN));
-
         int prev_buy=INT_MIN;  //so on first index i cannot sell
         int prev_sell=0;       //so on first index i can buy
         for(int i=0;i<n;i++){
@@ -28,7 +26,7 @@ public:
             prev_sell=cursell;
         }
         return max(prev_buy,prev_sell);
-
+         dp.resize(n+1,vector<int>(2,INT_MIN));
         return fun(0,0,arr);
     }
 };
