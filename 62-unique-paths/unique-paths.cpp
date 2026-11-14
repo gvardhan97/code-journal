@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        if(m==1)return 1;
+        vector<int>prev(n,0);
+        prev[0]=1;
+        for(int i=0;i<m;i++)
+        {
+            //release the first col
+            vector<int>cur(n,1);
+            for(int j=1;j<n;j++)
+            {
+                cur[j]=cur[j-1]+prev[j];
+            }
+            prev=cur;
+        }
+        return prev[n-1];
+    }
+};
